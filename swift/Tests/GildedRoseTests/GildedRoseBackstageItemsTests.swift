@@ -13,7 +13,7 @@ class GildedRoseBackstageItemsTests: XCTestCase {
   // MARK: Backstage items
   func testBackstageItem_moreThan10daysPositive_increaseQuality() {
     let items = [
-      Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 15, quality: 20),
+      BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 15, quality: 20),
     ]
     
     // When day passes
@@ -29,7 +29,7 @@ class GildedRoseBackstageItemsTests: XCTestCase {
   
   func testBackstageItem_between5and10daysPositive_increaseDoubleQuality() {
     let items = [
-      Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 49),
+      BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 49),
     ]
     // When day passes
     let app = GildedRose(items: items)
@@ -44,7 +44,7 @@ class GildedRoseBackstageItemsTests: XCTestCase {
   
   func testBackstageItem_between0and5daysPositive_increaseThirdQuality() {
     let items = [
-      Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 49),
+      BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 49),
     ]
     // When day passes
     let app = GildedRose(items: items)
@@ -57,9 +57,25 @@ class GildedRoseBackstageItemsTests: XCTestCase {
     }
   }
   
+  func testBackstageItem_0days_0Quality() {
+    let items = [
+      BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0, quality: 49),
+    ]
+    
+    // When day passes
+    let app = GildedRose(items: items)
+
+    app.updateQuality()
+    
+    // Then quality
+    items.forEach { item in
+      XCTAssertEqual(item.quality, 0)
+    }
+  }
+  
   func testBackstageItem_daysNegative_0Quality() {
     let items = [
-      Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0, quality: 49),
+      BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: -1, quality: 49),
     ]
     
     // When day passes

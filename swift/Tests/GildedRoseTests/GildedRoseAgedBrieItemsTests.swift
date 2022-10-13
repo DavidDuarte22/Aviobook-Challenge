@@ -13,7 +13,7 @@ class GildedRoseAgedBrieItemsTests: XCTestCase {
   // MARK: Aged Brie items
   func testAgedBrie_daysPositive_increaseQuality() {
     let items = [
-      Item(name: "Aged Brie", sellIn: 2, quality: 0),
+      AgedBrieItem(name: "Aged Brie", sellIn: 2, quality: 0),
     ]
     
     // When day passes
@@ -30,7 +30,7 @@ class GildedRoseAgedBrieItemsTests: XCTestCase {
   // MARK: Aged Brie items
   func testAgedBrie_daysNegative_increaseQuality() {
     let items = [
-      Item(name: "Aged Brie", sellIn: 2, quality: 0),
+      AgedBrieItem(name: "Aged Brie", sellIn: -2, quality: 0),
     ]
     
     // When day passes
@@ -39,8 +39,25 @@ class GildedRoseAgedBrieItemsTests: XCTestCase {
     
     // Then quality
     items.enumerated().forEach { (index, item) in
-      XCTAssertEqual(item.quality, 1)
+      XCTAssertEqual(item.quality, 2)
     }
   }
-
+  
+  func testAgedBrie_infiniteDays_MaxQuality() {
+    let items = [
+      AgedBrieItem(name: "Aged Brie", sellIn: 2, quality: 0),
+    ]
+    
+    // When day passes
+    let app = GildedRose(items: items)
+    
+    for _ in 0...100 {
+      app.updateQuality()
+    }
+    
+    // Then quality
+    items.enumerated().forEach { (index, item) in
+      XCTAssertEqual(item.quality, 50)
+    }
+  }
 }

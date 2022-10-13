@@ -13,7 +13,7 @@ class GildedRoseConjuredItemsTests: XCTestCase {
   // MARK: Conjured items
   func testConjuredItem_daysPositive_decreaseQuality() {
     let items = [
-      Item(name: "Conjured Mana Cake", sellIn: 3, quality: 6),
+      ConjuredItem(name: "Conjured Mana Cake", sellIn: 3, quality: 6),
     ]
     
     // When day passes
@@ -22,13 +22,13 @@ class GildedRoseConjuredItemsTests: XCTestCase {
     
     // Then quality
     items.forEach { item in
-      XCTAssertEqual(item.quality, 5)
+      XCTAssertEqual(item.quality, 4)
     }
   }
   
   func testConjured_daysNegative_decreaseDoubleQuality() {
     let items = [
-      Item(name: "Conjured Mana Cake", sellIn: -3, quality: 6),
+      ConjuredItem(name: "Conjured Mana Cake", sellIn: -3, quality: 6),
     ]
     
     // When day passes
@@ -38,9 +38,25 @@ class GildedRoseConjuredItemsTests: XCTestCase {
     
     // Then quality
     items.forEach { item in
-      XCTAssertEqual(item.quality, -6)
+      XCTAssertEqual(item.quality, 2)
     }
   }
   
-
+  func testConjured_infiniteDays_MinQuality() {
+    let items = [
+      ConjuredItem(name: "Conjured Mana Cake", sellIn: 3, quality: 6),
+    ]
+    
+    // When day passes
+    let app = GildedRose(items: items)
+    
+    for _ in 0...100 {
+      app.updateQuality()
+    }
+    
+    // Then quality
+    items.enumerated().forEach { (index, item) in
+      XCTAssertEqual(item.quality, 0)
+    }
+  }
 }

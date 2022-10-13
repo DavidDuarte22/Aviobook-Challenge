@@ -11,10 +11,9 @@ import XCTest
 class GildedRoseSulfurasItemsTests: XCTestCase {
 
   // MARK: Sulfuras items
-  func testSulfuras_daysPositiveAndNegative_equalQuality() {
+  func testSulfuras1_daysPositiveAndNegative_equalQuality() {
     let items = [
-      Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 0, quality: 80),
-      Item(name: "Sulfuras, Hand of Ragnaros", sellIn: -1, quality: 80),
+      SulfurasItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 0, quality: 80),
     ]
     
     // When day passes
@@ -24,8 +23,41 @@ class GildedRoseSulfurasItemsTests: XCTestCase {
     
     // Then quality
     items.forEach { item in
-      XCTAssertEqual(item.quality, item.quality)
+      XCTAssertEqual(item.quality, 80)
+    }
+  }
+  
+  func testSulfuras2_daysPositiveAndNegative_equalQuality() {
+    let items = [
+      SulfurasItem(name: "Sulfuras, Hand of Ragnaros", sellIn: -1, quality: 80),
+    ]
+    
+    // When day passes
+    let app = GildedRose(items: items)
+
+    app.updateQuality()
+    
+    // Then quality
+    items.forEach { item in
+      XCTAssertEqual(item.quality, 80)
     }
   }
 
+  func testSulfuras_infiniteDays_SameQuality() {
+    let items = [
+      SulfurasItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80),
+    ]
+    
+    // When day passes
+    let app = GildedRose(items: items)
+    
+    for _ in 0...100 {
+      app.updateQuality()
+    }
+    
+    // Then quality
+    items.enumerated().forEach { (index, item) in
+      XCTAssertEqual(item.quality, 80)
+    }
+  }
 }

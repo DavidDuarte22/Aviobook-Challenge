@@ -9,13 +9,11 @@
 import XCTest
 
 class GildedRoseTests: XCTestCase {
-
-  func testQualityNeverNegative() {
+  func testItemDescription() {
+    let items = [
+      Item(name: "+5 Dexterity Vest", sellIn: 10, quality: 20),
+    ]
     
+    XCTAssertEqual(items[0].description, "+5 Dexterity Vest, 10, 20")
   }
-  
-  func testQualityNeverMoreThan50() {
-    
-  }
-
 }

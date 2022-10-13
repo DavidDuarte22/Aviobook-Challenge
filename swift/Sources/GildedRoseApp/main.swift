@@ -1,16 +1,15 @@
 import GildedRose
 
 let items = [
-    Item(name: "+5 Dexterity Vest", sellIn: 10, quality: 20),
-    Item(name: "Aged Brie", sellIn: 2, quality: 0),
-    Item(name: "Elixir of the Mongoose", sellIn: 5, quality: 7),
-    Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 0, quality: 80),
-    Item(name: "Sulfuras, Hand of Ragnaros", sellIn: -1, quality: 80),
-    Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 15, quality: 20),
-    Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 49),
-    Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 49),
-    // this conjured item does not work properly yet
-    Item(name: "Conjured Mana Cake", sellIn: 3, quality: 6),
+    NormalItem(name: "+5 Dexterity Vest", sellIn: 10, quality: 20),
+    AgedBrieItem(name: "Aged Brie", sellIn: 2, quality: 0),
+    NormalItem(name: "Elixir of the Mongoose", sellIn: 5, quality: 7),
+    SulfurasItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 0, quality: 80),
+    SulfurasItem(name: "Sulfuras, Hand of Ragnaros", sellIn: -1, quality: 80),
+    BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 15, quality: 20),
+    BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 49),
+    BackstageItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 49),
+    ConjuredItem(name: "Conjured Mana Cake", sellIn: 3, quality: 6),
 ]
 
 let app = GildedRose(items: items)
